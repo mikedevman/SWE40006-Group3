@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Turn Markdown into Beautiful PDFs – MarkFlow</title>
+<script>(()=>{try{const t=JSON.parse(localStorage.getItem('mf-set')||'{}').theme||'system';if(t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{cloud:'#FDFDFE',ink:'#0B0F1A',verm:'#FF3D17',flow:{DEFAULT:'#548CFF',600:'#3F73E6'}}}}}</script>
+<style>
+body{font-family:Inter,system-ui,sans-serif}
+.doc{background:#fff;color:#1B2233;width:794px;min-height:1123px;padding:var(--m,72px);font:400 var(--sz,11pt)/1.6 var(--bf,Inter),system-ui,sans-serif;transform-origin:top left;box-shadow:0 1px 2px rgba(0,0,0,.15),0 16px 40px -16px rgba(0,0,0,.35)}
+.doc h1,.doc h2,.doc h3{font-family:var(--hf,Inter),system-ui,sans-serif;color:var(--ac,#0B0F1A);line-height:1.2;break-after:avoid}
+.doc h1{font-size:2.1em;font-weight:800;letter-spacing:-.03em;margin:0 0 .5em;border-bottom:var(--hb,0);padding-bottom:.3em}
+.doc h2{font-size:1.4em;font-weight:700;margin:1.4em 0 .4em}.doc h3{font-size:1.1em;font-weight:600;margin:1.1em 0 .3em}
+.doc p{margin:.6em 0}.doc ul,.doc ol{padding-left:1.3em;margin:.6em 0}.doc ul{list-style:disc}.doc ol{list-style:decimal}
+.doc a{color:#3F73E6}.doc blockquote{border-left:3px solid var(--ac,#0B0F1A);margin:1em 0;padding:.1em 1em;color:#4A5568;break-inside:avoid}
+.doc code{font:.85em ui-monospace,Consolas,monospace;background:#EEF1F6;padding:.1em .3em;border-radius:3px}
+.doc pre{background:#EEF1F6;padding:.8em 1em;border-radius:6px;white-space:pre-wrap;break-inside:avoid}.doc pre code{background:none;padding:0}
+.doc hr{border:0;border-top:1px solid #D5DBE5;margin:1.4em 0}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#print-root{display:none}
+@media print{body.printing>*:not(#print-root){display:none!important}#print-root{display:block}#print-root .doc{transform:none;box-shadow:none;min-height:0;width:100%!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body class="h-full bg-cloud text-ink antialiased dark:bg-ink dark:text-cloud">
+
+<header class="sticky top-0 z-20 border-b border-black/10 bg-cloud/90 backdrop-blur dark:border-white/10 dark:bg-ink/90">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+    <a href="index.html" class="flex items-center gap-2 font-bold"><span class="grid h-8 w-8 place-items-center rounded-lg bg-flow text-ink"><i data-lucide="file-down" class="h-4 w-4"></i></span>MarkFlow</a>
+    <nav class="flex items-center gap-1 text-sm font-medium" aria-label="Main">
+      <a href="templates.html" class="hidden rounded-lg px-3 py-2 hover:bg-black/5 sm:block dark:hover:bg-white/10">Templates</a>
+      <button data-theme-toggle class="rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Toggle light or dark mode"><i data-lucide="sun-moon" class="h-5 w-5"></i></button>
+      <a href="login.html" class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 border border-black/15 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10">Log in</a>
+      <a href="register.html" class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 bg-flow text-ink hover:bg-flow-600 hover:text-white hidden sm:inline-flex">Sign up</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="mx-auto max-w-4xl px-5 pb-10 pt-16 text-center sm:pt-24">
+    <h1 class="text-4xl font-extrabold tracking-tight sm:text-6xl">Turn Markdown into Beautiful PDFs.</h1>
+    <p class="mx-auto mt-5 max-w-xl text-lg text-black/60 dark:text-white/60">Write in Markdown, pick a template, and export a clean document. Nothing to install.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="workspace.html" class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 bg-flow text-ink hover:bg-flow-600 hover:text-white px-6 py-3 text-base">Start Converting</a>
+      <a href="templates.html" class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 border border-black/15 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10 px-6 py-3 text-base">Explore Templates</a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5">
+    <label id="drop" for="file" class="flex cursor-pointer flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-black/20 bg-flow/10 p-10 text-center transition hover:border-flow data-[over=true]:border-flow data-[over=true]:bg-flow/25 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-flow dark:border-white/25">
+      <i data-lucide="upload-cloud" class="h-8 w-8 text-flow"></i>
+      <span class="font-semibold">Drop a Markdown file here</span>
+      <span class="text-sm text-black/60 dark:text-white/60">or click to browse. Accepts .md, .markdown and .txt up to 2 MB.</span>
+      <input id="file" type="file" accept=".md,.markdown,.txt" class="sr-only">
+    </label>
+    <p id="derr" class="mt-3 hidden text-sm font-medium text-verm" role="alert"></p>
+    <ol id="steps" class="mt-4 space-y-2 text-sm" aria-live="polite"></ol>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 pt-24" id="features">
+    <h2 class="text-3xl font-extrabold tracking-tight">Everything you need to go from text to page</h2>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      
+        <div class="rounded-2xl border border-black/10 p-5 shadow-sm transition hover:shadow-md dark:border-white/10"><span class="grid h-9 w-9 place-items-center rounded-lg bg-flow/20"><i data-lucide="zap" class="h-4 w-4"></i></span><h3 class="mt-4 font-semibold">Live preview</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">See the A4 page update as you type.</p></div>
+      
+        <div class="rounded-2xl border border-black/10 p-5 shadow-sm transition hover:shadow-md dark:border-white/10"><span class="grid h-9 w-9 place-items-center rounded-lg bg-flow/20"><i data-lucide="layout-template" class="h-4 w-4"></i></span><h3 class="mt-4 font-semibold">Five templates</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Minimal, Academic, Business, Resume and Technical.</p></div>
+      
+        <div class="rounded-2xl border border-black/10 p-5 shadow-sm transition hover:shadow-md dark:border-white/10"><span class="grid h-9 w-9 place-items-center rounded-lg bg-flow/20"><i data-lucide="sliders-horizontal" class="h-4 w-4"></i></span><h3 class="mt-4 font-semibold">Page controls</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Paper size, orientation, margins and fonts.</p></div>
+      
+        <div class="rounded-2xl border border-black/10 p-5 shadow-sm transition hover:shadow-md dark:border-white/10"><span class="grid h-9 w-9 place-items-center rounded-lg bg-flow/20"><i data-lucide="file-up" class="h-4 w-4"></i></span><h3 class="mt-4 font-semibold">Drag and drop</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Open an existing Markdown file in one move.</p></div>
+      
+        <div class="rounded-2xl border border-black/10 p-5 shadow-sm transition hover:shadow-md dark:border-white/10"><span class="grid h-9 w-9 place-items-center rounded-lg bg-flow/20"><i data-lucide="moon" class="h-4 w-4"></i></span><h3 class="mt-4 font-semibold">Light and dark</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Follows your system, or set it yourself.</p></div>
+      
+        <div class="rounded-2xl border border-black/10 p-5 shadow-sm transition hover:shadow-md dark:border-white/10"><span class="grid h-9 w-9 place-items-center rounded-lg bg-flow/20"><i data-lucide="lock" class="h-4 w-4"></i></span><h3 class="mt-4 font-semibold">Private in this demo</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Everything stays in your browser. No server is used.</p></div>
+      
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-24" id="how">
+    <h2 class="text-3xl font-extrabold tracking-tight">How it works</h2>
+    <ol class="mt-8 grid gap-4 md:grid-cols-3">
+      
+        <li class="rounded-2xl bg-flow/10 p-6"><span class="grid h-8 w-8 place-items-center rounded-full bg-verm text-sm font-bold text-ink">1</span><h3 class="mt-4 font-semibold">Add your Markdown</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Type in the editor or drop in a file.</p></li>
+      
+        <li class="rounded-2xl bg-flow/10 p-6"><span class="grid h-8 w-8 place-items-center rounded-full bg-verm text-sm font-bold text-ink">2</span><h3 class="mt-4 font-semibold">Choose a template</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Pick a look and set paper size and margins.</p></li>
+      
+        <li class="rounded-2xl bg-flow/10 p-6"><span class="grid h-8 w-8 place-items-center rounded-full bg-verm text-sm font-bold text-ink">3</span><h3 class="mt-4 font-semibold">Export as PDF</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Check the live page, then download.</p></li>
+      
+    </ol>
+  </section>
+</main>
+<footer class="border-t border-black/10 dark:border-white/10"><div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-black/60 dark:text-white/60"><span class="font-semibold text-ink dark:text-cloud">MarkFlow</span><nav class="flex gap-5" aria-label="Footer"><a href="templates.html" class="hover:underline">Templates</a><a href="documents.html" class="hover:underline">My documents</a><a href="login.html" class="hover:underline">Log in</a></nav><span>Frontend prototype. No data leaves your browser.</span></div></footer>
+
+
+<div id="toasts" class="pointer-events-none fixed bottom-4 right-4 z-[60] flex max-w-sm flex-col gap-2" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script src="markflow.js"></script>
+
+<script>
+const drop=$('#drop'),fi=$('#file');
+async function take(f){
+  const err=$('#derr');err.classList.add('hidden');$('#steps').innerHTML='';
+  if(!f)return;
+  if(!/\.(md|markdown|txt)$/i.test(f.name)){err.textContent='That file type is not supported. Choose a .md, .markdown or .txt file.';err.classList.remove('hidden');return}
+  if(f.size>2*1024*1024){err.textContent='That file is larger than 2 MB. Try a smaller file.';err.classList.remove('hidden');return}
+  const t=await f.text();
+  LS.set('mf-cur',{id:null,title:f.name.replace(/\.[^.]+$/,''),content:t});
+  await MF.run($('#steps'),['Reading '+f.name,'Counting '+(t.trim().match(/\S+/g)||[]).length+' words','Keeping a draft in this browser','Opening the workspace'],550);
+  MF.flash('Loaded '+f.name+'. This is a demo: the file stayed in your browser.');location.href="workspace.html";
+}
+fi.onchange=()=>take(fi.files[0]);
+['dragenter','dragover'].forEach(e=>drop.addEventListener(e,x=>{x.preventDefault();drop.dataset.over='true'}));
+['dragleave','drop'].forEach(e=>drop.addEventListener(e,x=>{x.preventDefault();drop.dataset.over='false'}));
+drop.addEventListener('drop',x=>take(x.dataTransfer.files[0]));
+</script>
+
+</body>
+</html>

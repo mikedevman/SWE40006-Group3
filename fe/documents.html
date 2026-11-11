@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My documents – MarkFlow</title>
+<script>(()=>{try{const t=JSON.parse(localStorage.getItem('mf-set')||'{}').theme||'system';if(t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{cloud:'#FDFDFE',ink:'#0B0F1A',verm:'#FF3D17',flow:{DEFAULT:'#548CFF',600:'#3F73E6'}}}}}</script>
+<style>
+body{font-family:Inter,system-ui,sans-serif}
+.doc{background:#fff;color:#1B2233;width:794px;min-height:1123px;padding:var(--m,72px);font:400 var(--sz,11pt)/1.6 var(--bf,Inter),system-ui,sans-serif;transform-origin:top left;box-shadow:0 1px 2px rgba(0,0,0,.15),0 16px 40px -16px rgba(0,0,0,.35)}
+.doc h1,.doc h2,.doc h3{font-family:var(--hf,Inter),system-ui,sans-serif;color:var(--ac,#0B0F1A);line-height:1.2;break-after:avoid}
+.doc h1{font-size:2.1em;font-weight:800;letter-spacing:-.03em;margin:0 0 .5em;border-bottom:var(--hb,0);padding-bottom:.3em}
+.doc h2{font-size:1.4em;font-weight:700;margin:1.4em 0 .4em}.doc h3{font-size:1.1em;font-weight:600;margin:1.1em 0 .3em}
+.doc p{margin:.6em 0}.doc ul,.doc ol{padding-left:1.3em;margin:.6em 0}.doc ul{list-style:disc}.doc ol{list-style:decimal}
+.doc a{color:#3F73E6}.doc blockquote{border-left:3px solid var(--ac,#0B0F1A);margin:1em 0;padding:.1em 1em;color:#4A5568;break-inside:avoid}
+.doc code{font:.85em ui-monospace,Consolas,monospace;background:#EEF1F6;padding:.1em .3em;border-radius:3px}
+.doc pre{background:#EEF1F6;padding:.8em 1em;border-radius:6px;white-space:pre-wrap;break-inside:avoid}.doc pre code{background:none;padding:0}
+.doc hr{border:0;border-top:1px solid #D5DBE5;margin:1.4em 0}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#print-root{display:none}
+@media print{body.printing>*:not(#print-root){display:none!important}#print-root{display:block}#print-root .doc{transform:none;box-shadow:none;min-height:0;width:100%!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body class="h-full bg-cloud text-ink antialiased dark:bg-ink dark:text-cloud">
+
+<div class="flex h-full">
+  <div id="sbb" class="fixed inset-0 z-30 hidden bg-black/40 md:hidden"></div>
+  <aside id="sb" class="fixed inset-y-0 left-0 z-40 flex w-60 -translate-x-full flex-col border-r border-black/10 bg-cloud p-4 transition-transform md:static md:translate-x-0 dark:border-white/10 dark:bg-ink">
+    <a href="index.html" class="mb-6 flex items-center gap-2 px-2 font-bold"><span class="grid h-7 w-7 place-items-center rounded-lg bg-flow text-ink"><i data-lucide="file-down" class="h-4 w-4"></i></span>MarkFlow</a>
+    <nav class="space-y-1 text-sm font-medium" aria-label="App">
+      
+        <a href="workspace.html"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition text-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10"><i data-lucide="pen-line" class="h-4 w-4"></i>Workspace</a>
+      
+        <a href="templates.html"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition text-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10"><i data-lucide="layout-template" class="h-4 w-4"></i>Templates</a>
+      
+        <a href="export.html"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition text-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10"><i data-lucide="file-output" class="h-4 w-4"></i>Export</a>
+      
+        <a href="documents.html"  aria-current="page"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition bg-flow/20"><i data-lucide="folder" class="h-4 w-4"></i>My documents<span class="ml-auto h-1.5 w-1.5 rounded-full bg-verm"></span></a>
+      
+        <a href="settings.html"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition text-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10"><i data-lucide="settings" class="h-4 w-4"></i>Settings</a>
+      
+    </nav>
+    <div class="mt-auto space-y-2 border-t border-black/10 pt-4 text-sm dark:border-white/10">
+      <div class="flex items-center gap-3 px-2"><span class="grid h-8 w-8 place-items-center rounded-full bg-flow/20 font-semibold">AM</span><div class="min-w-0"><p class="truncate font-medium">Alex Morgan</p><p class="truncate text-xs text-black/50 dark:text-white/50">alex.morgan@example.com</p></div></div>
+      <div class="flex gap-2"><button data-theme-toggle class="rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Toggle light or dark mode"><i data-lucide="sun-moon" class="h-4 w-4"></i></button><a href="login.html" class="flex flex-1 items-center gap-2 rounded-lg px-2 py-2 hover:bg-black/5 dark:hover:bg-white/10"><i data-lucide="log-out" class="h-4 w-4"></i>Sign out (demo)</a></div>
+    </div>
+  </aside>
+  <div class="flex min-w-0 flex-1 flex-col">
+    <header class="flex h-14 shrink-0 items-center gap-3 border-b border-black/10 px-4 md:hidden dark:border-white/10"><button id="sbo" class="rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Open menu"><i data-lucide="menu" class="h-5 w-5"></i></button><span class="font-semibold">My documents</span></header>
+    <main class="min-h-0 flex-1 overflow-auto">
+<div class="mx-auto max-w-6xl p-5 sm:p-8">
+  <div class="flex flex-wrap items-center gap-3">
+    <h1 class="mr-auto text-2xl font-bold tracking-tight">My documents</h1>
+    <button class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 bg-flow text-ink hover:bg-flow-600 hover:text-white" type="button" id="new"><i data-lucide="plus" class="h-4 w-4"></i>New document</button>
+  </div>
+  <div class="mt-5 flex flex-wrap gap-3">
+    <label class="relative min-w-[12rem] flex-1"><span class="sr-only">Search documents</span><i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40 dark:text-white/40"></i><input id="q" type="search" placeholder="Search by title" class="w-full rounded-lg border border-black/20 bg-transparent py-2 pl-9 pr-3 text-sm dark:border-white/25"></label>
+    <label class="flex items-center gap-2 text-sm">Sort by<select id="sort" class="rounded-lg border border-black/20 bg-transparent px-3 py-2 dark:border-white/25 dark:bg-ink"><option value="upd">Last edited</option><option value="title">Title</option><option value="words">Length</option></select></label>
+  </div>
+  <div id="list" class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+  <p id="empty" class="mt-10 hidden text-center text-black/60 dark:text-white/60">No documents match. Clear the search or start a new document.</p>
+</div>
+<div id="rn" class="fixed inset-0 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="rn-t"><div class="absolute inset-0 bg-black/50" data-close></div><div class="relative max-h-[90dvh] w-full max-w-md overflow-auto rounded-2xl bg-cloud p-6 shadow-2xl dark:bg-[#121827]"><div class="mb-4 flex items-center justify-between"><h2 id="rn-t" class="text-lg font-semibold">Rename document</h2><button data-close class="rounded-lg p-1 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Close"><i data-lucide="x" class="h-5 w-5"></i></button></div><label for="rni" class="mb-1 block text-sm font-medium">Title</label><input id="rni" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25"><div class="mt-5 flex justify-end gap-2"><button class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 border border-black/15 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10" type="button" data-close>Cancel</button><button class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 bg-flow text-ink hover:bg-flow-600 hover:text-white" type="button" id="rns">Rename</button></div></div></div>
+<div id="dm" class="fixed inset-0 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="dm-t"><div class="absolute inset-0 bg-black/50" data-close></div><div class="relative max-h-[90dvh] w-full max-w-md overflow-auto rounded-2xl bg-cloud p-6 shadow-2xl dark:bg-[#121827]"><div class="mb-4 flex items-center justify-between"><h2 id="dm-t" class="text-lg font-semibold">Delete document</h2><button data-close class="rounded-lg p-1 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Close"><i data-lucide="x" class="h-5 w-5"></i></button></div><p class="text-sm text-black/70 dark:text-white/70">“<span id="dmt"></span>” will be removed from this browser. This cannot be undone.</p><div class="mt-5 flex justify-end gap-2"><button class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 border border-black/15 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10" type="button" data-close>Cancel</button><button class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 bg-verm/10 text-verm hover:bg-verm/20" type="button" id="dms"><i data-lucide="trash-2" class="h-4 w-4"></i>Delete</button></div></div></div>
+
+</main>
+  </div>
+</div>
+
+<div id="toasts" class="pointer-events-none fixed bottom-4 right-4 z-[60] flex max-w-sm flex-col gap-2" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script src="markflow.js"></script>
+
+<script>
+let D=MF.docs(),tgt=null;
+const wc=d=>(d.content.trim().match(/\S+/g)||[]).length;
+const W={workspace:"workspace.html",export:"export.html"};
+function go(d,to){LS.set('mf-cur',{id:d.id,title:d.title,content:d.content});setS({tpl:d.tpl});location.href=W[to]}
+function draw(){
+  const t=$('#q').value.toLowerCase(),k=$('#sort').value;
+  const L=D.filter(d=>d.title.toLowerCase().includes(t)).sort((a,b)=>k==='title'?a.title.localeCompare(b.title):k==='words'?wc(b)-wc(a):b.upd-a.upd);
+  $('#empty').classList.toggle('hidden',L.length>0);
+  $('#list').innerHTML=L.map(d=>`<article class="relative rounded-2xl border border-black/10 p-4 shadow-sm transition hover:shadow-md dark:border-white/10"><button data-act="open" data-id="${d.id}" class="block w-full text-left"><div class="h-28 overflow-hidden rounded-lg bg-flow/10 p-3 text-xs leading-relaxed text-black/60 dark:text-white/60">${esc(d.content.replace(/[#*>\`-]/g,'').slice(0,220))}</div><h2 class="mt-3 truncate pr-8 font-semibold">${esc(d.title)}</h2></button><p class="flex flex-wrap gap-x-3 text-sm text-black/60 dark:text-white/60"><span>${TPL[d.tpl].n}</span><span>${wc(d)} words</span><span>${MF.ago(d.upd)}</span></p><button data-menu class="absolute right-3 top-[9.75rem] rounded-lg p-1.5 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Actions for ${esc(d.title)}" aria-haspopup="menu"><i data-lucide="more-horizontal" class="h-4 w-4"></i></button><ul role="menu" class="absolute right-3 top-[11.5rem] z-10 hidden w-44 rounded-xl border border-black/10 bg-cloud p-1 text-sm shadow-lg dark:border-white/15 dark:bg-[#121827]">${[['open','folder-open','Open'],['edit','pen-line','Edit'],['rename','text-cursor-input','Rename'],['dup','copy','Duplicate'],['export','file-down','Export'],['del','trash-2','Delete']].map(([a,i,l])=>`<li><button role="menuitem" data-act="${a}" data-id="${d.id}" class="flex w-full items-center gap-2 rounded-lg px-3 py-2 hover:bg-black/5 dark:hover:bg-white/10 ${a==='del'?'text-verm':''}"><i data-lucide="${i}" class="h-4 w-4"></i>${l}</button></li>`).join('')}</ul></article>`).join('');
+  MF.icons();
+}
+document.addEventListener('click',e=>{
+  const m=e.target.closest('[data-menu]');$$('#list ul').forEach(u=>{if(!m||u!==m.nextElementSibling)u.classList.add('hidden')});
+  if(m){m.nextElementSibling.classList.toggle('hidden');return}
+  const b=e.target.closest('[data-act]');if(!b)return;const d=D.find(x=>x.id===b.dataset.id);tgt=d;
+  const a=b.dataset.act;
+  if(a==='open'||a==='edit')go(d,'workspace');
+  else if(a==='export')go(d,'export');
+  else if(a==='rename'){$('#rni').value=d.title;MF.open('rn');$('#rni').focus()}
+  else if(a==='dup'){D.unshift({...d,id:'d'+Date.now(),title:'Copy of '+d.title,upd:Date.now()});MF.saveDocs(D);draw();MF.toast('Duplicated “'+d.title+'”.')}
+  else if(a==='del'){$('#dmt').textContent=d.title;MF.open('dm')}
+});
+$('#rns').onclick=()=>{const v=$('#rni').value.trim();if(!v)return MF.toast('Enter a title first.','error');tgt.title=v;tgt.upd=Date.now();MF.saveDocs(D);MF.close('rn');draw();MF.toast('Renamed to “'+v+'”.')};
+$('#dms').onclick=()=>{D=D.filter(x=>x.id!==tgt.id);MF.saveDocs(D);MF.close('dm');draw();MF.toast('Deleted “'+tgt.title+'”.')};
+$('#new').onclick=()=>{LS.set('mf-cur',{id:null,title:'Untitled document',content:'# Untitled document\n\nStart writing here.\n'});location.href=W.workspace};
+$('#q').oninput=draw;$('#sort').onchange=draw;draw();
+</script>
+
+</body>
+</html>

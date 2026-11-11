@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Export – MarkFlow</title>
+<script>(()=>{try{const t=JSON.parse(localStorage.getItem('mf-set')||'{}').theme||'system';if(t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{cloud:'#FDFDFE',ink:'#0B0F1A',verm:'#FF3D17',flow:{DEFAULT:'#548CFF',600:'#3F73E6'}}}}}</script>
+<style>
+body{font-family:Inter,system-ui,sans-serif}
+.doc{background:#fff;color:#1B2233;width:794px;min-height:1123px;padding:var(--m,72px);font:400 var(--sz,11pt)/1.6 var(--bf,Inter),system-ui,sans-serif;transform-origin:top left;box-shadow:0 1px 2px rgba(0,0,0,.15),0 16px 40px -16px rgba(0,0,0,.35)}
+.doc h1,.doc h2,.doc h3{font-family:var(--hf,Inter),system-ui,sans-serif;color:var(--ac,#0B0F1A);line-height:1.2;break-after:avoid}
+.doc h1{font-size:2.1em;font-weight:800;letter-spacing:-.03em;margin:0 0 .5em;border-bottom:var(--hb,0);padding-bottom:.3em}
+.doc h2{font-size:1.4em;font-weight:700;margin:1.4em 0 .4em}.doc h3{font-size:1.1em;font-weight:600;margin:1.1em 0 .3em}
+.doc p{margin:.6em 0}.doc ul,.doc ol{padding-left:1.3em;margin:.6em 0}.doc ul{list-style:disc}.doc ol{list-style:decimal}
+.doc a{color:#3F73E6}.doc blockquote{border-left:3px solid var(--ac,#0B0F1A);margin:1em 0;padding:.1em 1em;color:#4A5568;break-inside:avoid}
+.doc code{font:.85em ui-monospace,Consolas,monospace;background:#EEF1F6;padding:.1em .3em;border-radius:3px}
+.doc pre{background:#EEF1F6;padding:.8em 1em;border-radius:6px;white-space:pre-wrap;break-inside:avoid}.doc pre code{background:none;padding:0}
+.doc hr{border:0;border-top:1px solid #D5DBE5;margin:1.4em 0}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#print-root{display:none}
+@media print{body.printing>*:not(#print-root){display:none!important}#print-root{display:block}#print-root .doc{transform:none;box-shadow:none;min-height:0;width:100%!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body class="h-full bg-cloud text-ink antialiased dark:bg-ink dark:text-cloud">
+
+<div class="flex h-full">
+  <div id="sbb" class="fixed inset-0 z-30 hidden bg-black/40 md:hidden"></div>
+  <aside id="sb" class="fixed inset-y-0 left-0 z-40 flex w-60 -translate-x-full flex-col border-r border-black/10 bg-cloud p-4 transition-transform md:static md:translate-x-0 dark:border-white/10 dark:bg-ink">
+    <a href="index.html" class="mb-6 flex items-center gap-2 px-2 font-bold"><span class="grid h-7 w-7 place-items-center rounded-lg bg-flow text-ink"><i data-lucide="file-down" class="h-4 w-4"></i></span>MarkFlow</a>
+    <nav class="space-y-1 text-sm font-medium" aria-label="App">
+      
+        <a href="workspace.html"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition text-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10"><i data-lucide="pen-line" class="h-4 w-4"></i>Workspace</a>
+      
+        <a href="templates.html"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition text-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10"><i data-lucide="layout-template" class="h-4 w-4"></i>Templates</a>
+      
+        <a href="export.html"  aria-current="page"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition bg-flow/20"><i data-lucide="file-output" class="h-4 w-4"></i>Export<span class="ml-auto h-1.5 w-1.5 rounded-full bg-verm"></span></a>
+      
+        <a href="documents.html"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition text-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10"><i data-lucide="folder" class="h-4 w-4"></i>My documents</a>
+      
+        <a href="settings.html"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition text-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10"><i data-lucide="settings" class="h-4 w-4"></i>Settings</a>
+      
+    </nav>
+    <div class="mt-auto space-y-2 border-t border-black/10 pt-4 text-sm dark:border-white/10">
+      <div class="flex items-center gap-3 px-2"><span class="grid h-8 w-8 place-items-center rounded-full bg-flow/20 font-semibold">AM</span><div class="min-w-0"><p class="truncate font-medium">Alex Morgan</p><p class="truncate text-xs text-black/50 dark:text-white/50">alex.morgan@example.com</p></div></div>
+      <div class="flex gap-2"><button data-theme-toggle class="rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Toggle light or dark mode"><i data-lucide="sun-moon" class="h-4 w-4"></i></button><a href="login.html" class="flex flex-1 items-center gap-2 rounded-lg px-2 py-2 hover:bg-black/5 dark:hover:bg-white/10"><i data-lucide="log-out" class="h-4 w-4"></i>Sign out (demo)</a></div>
+    </div>
+  </aside>
+  <div class="flex min-w-0 flex-1 flex-col">
+    <header class="flex h-14 shrink-0 items-center gap-3 border-b border-black/10 px-4 md:hidden dark:border-white/10"><button id="sbo" class="rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Open menu"><i data-lucide="menu" class="h-5 w-5"></i></button><span class="font-semibold">Export</span></header>
+    <main class="min-h-0 flex-1 overflow-auto">
+<div class="grid min-h-full lg:grid-cols-[1fr_21rem]">
+  <section id="box" class="overflow-auto bg-black/[.04] p-4 dark:bg-white/[.04]"><div class="fit mx-auto"><article id="doc" class="doc"></article></div></section>
+  <aside class="space-y-5 border-t border-black/10 p-5 lg:border-l lg:border-t-0 dark:border-white/10">
+    <div><h1 class="text-xl font-bold tracking-tight">PDF settings</h1><p id="meta" class="mt-1 text-sm text-black/60 dark:text-white/60"></p></div>
+    
+      <div><label for="size" class="mb-1 block text-sm font-medium">Paper size</label><select id="size" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"><option value="A4">A4</option><option value="Letter">US Letter</option><option value="Legal">US Legal</option></select></div>
+    
+      <div><label for="orient" class="mb-1 block text-sm font-medium">Orientation</label><select id="orient" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div>
+    
+      <div><label for="margin" class="mb-1 block text-sm font-medium">Margins</label><select id="margin" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"><option value="narrow">Narrow</option><option value="normal">Normal</option><option value="wide">Wide</option></select></div>
+    
+      <div><label for="font" class="mb-1 block text-sm font-medium">Font</label><select id="font" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"><option value="">Template default</option><option value="Inter">Inter (sans)</option><option value="Newsreader">Newsreader (serif)</option><option value="mono">Monospace</option></select></div>
+    
+      <div><label for="tpl" class="mb-1 block text-sm font-medium">Template</label><select id="tpl" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"></select></div>
+    
+    <button class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 bg-verm text-ink hover:brightness-110 w-full py-2.5" type="button" id="dl"><i data-lucide="download" class="h-4 w-4"></i>Download PDF</button>
+    <p class="text-xs text-black/60 dark:text-white/60">Demo: your browser's print dialog makes the PDF, so choose “Save as PDF”. Nothing is uploaded.</p>
+  </aside>
+</div>
+<div id="prog" class="fixed inset-0 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="prog-t"><div class="absolute inset-0 bg-black/50" data-close></div><div class="relative max-h-[90dvh] w-full max-w-md overflow-auto rounded-2xl bg-cloud p-6 shadow-2xl dark:bg-[#121827]"><div class="mb-4 flex items-center justify-between"><h2 id="prog-t" class="text-lg font-semibold">Preparing your PDF</h2><button data-close class="rounded-lg p-1 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Close"><i data-lucide="x" class="h-5 w-5"></i></button></div>
+  <ol id="pl" class="space-y-3 text-sm"></ol>
+  <p id="pnote" class="mt-4 hidden text-sm text-black/70 dark:text-white/70">The print dialog is open. Choose “Save as PDF” to finish. This was a demo export: no server created a file.</p>
+  <div class="mt-5 flex justify-end"><button class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 bg-flow text-ink hover:bg-flow-600 hover:text-white hidden" type="button" id="pclose" data-close>Done</button></div>
+</div></div>
+
+</main>
+  </div>
+</div>
+
+<div id="toasts" class="pointer-events-none fixed bottom-4 right-4 z-[60] flex max-w-sm flex-col gap-2" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script src="markflow.js"></script>
+
+<script>
+const doc=$('#doc'),cur=LS.get('mf-cur',null)||{title:'Untitled document',content:MF.SAMPLE};
+$('#tpl').innerHTML=Object.entries(TPL).map(([k,t])=>`<option value="${k}">${t.n}</option>`).join('');
+const ids=['size','orient','margin','font','tpl'];ids.forEach(i=>{$('#'+i).value=S()[i]});
+function upd(){const s=S();doc.innerHTML=md(cur.content);applyTpl(doc,s.tpl,s);fit(doc);const h=SIZES[s.size][s.orient==='landscape'?0:1],n=Math.max(1,Math.ceil(doc.offsetHeight/h));$('#meta').textContent=cur.title+': about '+n+' page(s) on '+s.size+', '+s.orient+'.'}
+ids.forEach(i=>$('#'+i).onchange=e=>{setS({[i]:e.target.value});upd()});
+$('#dl').onclick=async()=>{const s=S(),b=$('#dl');b.disabled=true;$('#pnote').classList.add('hidden');$('#pclose').classList.add('hidden');MF.open('prog');
+  await MF.run($('#pl'),['Reading “'+cur.title+'”','Applying the '+TPL[s.tpl].n+' template','Laying out pages on '+s.size,'Opening the print dialog'],650);
+  printDoc(md(cur.content),s.tpl,s);$('#pnote').classList.remove('hidden');$('#pclose').classList.remove('hidden');b.disabled=false};
+addEventListener('resize',()=>fit(doc));if(document.fonts)document.fonts.ready.then(()=>fit(doc));
+upd();
+</script>
+
+</body>
+</html>
