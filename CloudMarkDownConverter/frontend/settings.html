@@ -21,9 +21,10 @@ body{font-family:Inter,system-ui,sans-serif}
 .doc code{font:.85em ui-monospace,Consolas,monospace;background:#EEF1F6;padding:.1em .3em;border-radius:3px}
 .doc pre{background:#EEF1F6;padding:.8em 1em;border-radius:6px;white-space:pre-wrap;break-inside:avoid}.doc pre code{background:none;padding:0}
 .doc hr{border:0;border-top:1px solid #D5DBE5;margin:1.4em 0}
+.doc table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.94em}
+.doc th,.doc td{border:1px solid #D5DBE5;padding:.45em .65em;text-align:left}
+.doc th{background:rgba(15,23,42,.04);font-weight:700}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-#print-root{display:none}
-@media print{body.printing>*:not(#print-root){display:none!important}#print-root{display:block}#print-root .doc{transform:none;box-shadow:none;min-height:0;width:100%!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -46,9 +47,8 @@ body{font-family:Inter,system-ui,sans-serif}
         <a href="settings.html"  aria-current="page"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition bg-flow/20"><i data-lucide="settings" class="h-4 w-4"></i>Settings<span class="ml-auto h-1.5 w-1.5 rounded-full bg-verm"></span></a>
       
     </nav>
-    <div class="mt-auto space-y-2 border-t border-black/10 pt-4 text-sm dark:border-white/10">
-      <div class="flex items-center gap-3 px-2"><span class="grid h-8 w-8 place-items-center rounded-full bg-flow/20 font-semibold">AM</span><div class="min-w-0"><p class="truncate font-medium">Alex Morgan</p><p class="truncate text-xs text-black/50 dark:text-white/50">alex.morgan@example.com</p></div></div>
-      <div class="flex gap-2"><button data-theme-toggle class="rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Toggle light or dark mode"><i data-lucide="sun-moon" class="h-4 w-4"></i></button><a href="login.html" class="flex flex-1 items-center gap-2 rounded-lg px-2 py-2 hover:bg-black/5 dark:hover:bg-white/10"><i data-lucide="log-out" class="h-4 w-4"></i>Sign out (demo)</a></div>
+    <div class="mt-auto border-t border-black/10 pt-4 text-sm font-medium dark:border-white/10">
+      <button data-theme-toggle class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-black/60 transition hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10" aria-label="Toggle light or dark mode"><i data-lucide="sun-moon" class="h-4 w-4"></i>Toggle theme</button>
     </div>
   </aside>
   <div class="flex min-w-0 flex-1 flex-col">
@@ -65,9 +65,6 @@ body{font-family:Inter,system-ui,sans-serif}
     <div class="space-y-2 pt-6 text-sm"><label class="flex items-center gap-2"><input type="checkbox" id="wrap" class="h-4 w-4 accent-[#548CFF]">Wrap long lines</label><label class="flex items-center gap-2"><input type="checkbox" id="spell" class="h-4 w-4 accent-[#548CFF]">Check spelling</label></div></div></section>
   <section class="rounded-2xl border border-black/10 p-5 dark:border-white/10"><h2 class="font-semibold">PDF defaults</h2>
     <div class="mt-3 grid gap-4 sm:grid-cols-3"><div><label for="size" class="mb-1 block text-sm font-medium">Paper size</label><select id="size" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"><option>A4</option><option>Letter</option><option>Legal</option></select></div><div><label for="margin" class="mb-1 block text-sm font-medium">Margins</label><select id="margin" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"><option value="narrow">Narrow</option><option value="normal">Normal</option><option value="wide">Wide</option></select></div><div><label for="tpl" class="mb-1 block text-sm font-medium">Template</label><select id="tpl" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"></select></div></div></section>
-  <section class="rounded-2xl border border-black/10 p-5 dark:border-white/10"><h2 class="font-semibold">Account</h2>
-    <div class="mt-3 grid gap-4 sm:grid-cols-2"><div><label for="an" class="mb-1 block text-sm font-medium">Full name</label><input id="an" value="Alex Morgan" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"></div><div><label for="ae" class="mb-1 block text-sm font-medium">Email</label><input id="ae" type="email" value="alex.morgan@example.com" class="w-full rounded-lg border border-black/20 bg-transparent px-3 py-2 text-sm dark:border-white/25 dark:bg-ink"></div></div>
-    <p class="mt-3 text-sm text-black/60 dark:text-white/60">Sample profile. There is no real account behind it.</p></section>
   <div class="flex justify-end"><button class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 bg-flow text-ink hover:bg-flow-600 hover:text-white" type="button" id="sv">Save changes</button></div>
 </div>
 
@@ -80,10 +77,12 @@ body{font-family:Inter,system-ui,sans-serif}
 <script src="markflow.js"></script>
 
 <script>
-$('#tpl').innerHTML=Object.entries(TPL).map(([k,t])=>`<option value="${k}">${t.n}</option>`).join('');
-const s=S();['fs','size','margin','tpl'].forEach(i=>$('#'+i).value=s[i]);$('#wrap').checked=s.wrap;$('#spell').checked=s.spell;$('[name=theme][value='+s.theme+']').checked=true;
+function fillTemplates(){const el=$('#tpl');el.innerHTML=Object.entries(TPL).map(([k,t])=>`<option value="${k}">${t.n}</option>`).join('');const v=S().tpl;el.value=TPL[v]?v:(el.options[0]?el.options[0].value:'');}
+fillTemplates();
+const s=S();['fs','size','margin','tpl'].forEach(i=>{const el=$('#'+i),v=String(s[i]);el.value=Array.from(el.options).some(o=>o.value===v)?v:(el.options[0]?el.options[0].value:'');});$('#wrap').checked=Boolean(s.wrap);$('#spell').checked=Boolean(s.spell);(Array.from(document.querySelectorAll('[name=theme]')).find(r=>r.value===s.theme)||$('[name=theme][value="system"]')).checked=true;
 $$('[name=theme]').forEach(r=>r.onchange=()=>{setS({theme:r.value});MF.applyTheme()});
-$('#sv').onclick=()=>{setS({fs:+$('#fs').value,wrap:$('#wrap').checked,spell:$('#spell').checked,size:$('#size').value,margin:$('#margin').value,tpl:$('#tpl').value});MF.toast('Settings saved in this browser. This is a demo: no account was updated.')};
+$('#sv').onclick=()=>{setS({fs:+$('#fs').value,wrap:$('#wrap').checked,spell:$('#spell').checked,size:$('#size').value,margin:$('#margin').value,tpl:$('#tpl').value});MF.toast('Settings saved in this browser.')};
+MF.loadTemplates().then(fillTemplates);
 </script>
 
 </body>

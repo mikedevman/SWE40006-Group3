@@ -1,4 +1,4 @@
-/* MarkFlow shared frontend helpers. Frontend-only: state lives in localStorage. */
+/* MarkFlow shared frontend helpers: live preview, local drafts/settings, and backend API client. */
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const LS={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -39,6 +39,8 @@ docker compose up --build
 Read more at [the MarkFlow demo](https://example.com).
 `;
 const inl=s=>esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\s][^*]*)\*/g,'$1<em>$2</em>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g,'<a href="$2">$1</a>');
+const tblCells=l=>l.trim().replace(/^\|/,'').replace(/\|$/,'').split('|').map(c=>c.trim());
+const isTbl=(a,b)=>Boolean(a&&b&&a.includes('|')&&b.includes('|')&&tblCells(b).every(c=>/^:?-{3,}:?$/.test(c)));
 const LI=/^\s*([-*]|\d+\.)\s+/;
 function md(t){const L=String(t).replace(/\r/g,'').split('\n');let h='',i=0,m;
  while(i<L.length){const l=L[i];
@@ -47,19 +49,17 @@ function md(t){const L=String(t).replace(/\r/g,'').split('\n');let h='',i=0,m;
   if(/^\s*(-{3,}|\*{3,})\s*$/.test(l)){h+='<hr>';i++;continue}
   if(/^>\s?/.test(l)){const q=[];while(i<L.length&&/^>\s?/.test(L[i]))q.push(L[i++].replace(/^>\s?/,''));h+='<blockquote>'+inl(q.join(' '))+'</blockquote>';continue}
   if(LI.test(l)){const o=/^\s*\d+\./.test(l),it=[];while(i<L.length&&LI.test(L[i]))it.push(L[i++].replace(LI,''));h+=(o?'<ol>':'<ul>')+it.map(x=>'<li>'+inl(x)+'</li>').join('')+(o?'</ol>':'</ul>');continue}
+  if(isTbl(l,L[i+1])){const hd=tblCells(l);i+=2;const rows=[];while(i<L.length&&L[i].trim()&&L[i].includes('|')&&!/^(#{1,6}\s|```|>)/.test(L[i])){const r=tblCells(L[i++]);rows.push('<tr>'+hd.map((_,j)=>'<td>'+inl(r[j]||'')+'</td>').join('')+'</tr>')}h+='<table><thead><tr>'+hd.map(c=>'<th>'+inl(c)+'</th>').join('')+'</tr></thead>'+(rows.length?'<tbody>'+rows.join('')+'</tbody>':'')+'</table>';continue}
   if(!l.trim()){i++;continue}
-  const p=[];while(i<L.length&&L[i].trim()&&!/^(#{1,6}\s|```|>|\s*(-{3,}|\*{3,})\s*$|\s*([-*]|\d+\.)\s)/.test(L[i]))p.push(L[i++]);
+  const p=[];while(i<L.length&&L[i].trim()&&!/^(#{1,6}\s|```|>|\s*(-{3,}|\*{3,})\s*$|\s*([-*]|\d+\.)\s)/.test(L[i])&&!isTbl(L[i],L[i+1]))p.push(L[i++]);
   if(!p.length)p.push(L[i++]);h+='<p>'+inl(p.join(' '))+'</p>'}
  return h}
-function applyTpl(el,k,o={}){const t=TPL[k]||TPL.minimal,[w,h]=SIZES[o.size||'A4'],ls=o.orient==='landscape',f=o.font;
+function applyTpl(el,k,o={}){const t=TPL[k]||TPL.minimal,[w,h]=SIZES[o.size||'A4']||SIZES.A4,ls=o.orient==='landscape',f=o.font;
  const v=(a,b)=>el.style.setProperty(a,b);
  v('--bf',f?(f==='mono'?'ui-monospace,Consolas,monospace':f):t.bf);v('--hf',t.hf);v('--ac',t.ac);v('--hb',t.hb);v('--sz',t.sz);
  v('--m',({narrow:48,normal:t.m||72,wide:96})[o.margin||'normal']+'px');
  el.style.width=(ls?h:w)+'px';el.style.minHeight=(ls?w:h)+'px'}
-function fit(el){const w=el.offsetWidth,p=el.parentElement,s=Math.min(1,(p.parentElement.clientWidth-32)/w);el.style.transform='scale('+s+')';p.style.width=w*s+'px';p.style.height=el.offsetHeight*s+'px'}
-function printDoc(html,k,o){const r=document.createElement('div');r.id='print-root';r.innerHTML='<article class="doc"></article>';const d=r.firstChild;d.innerHTML=html;applyTpl(d,k,o);document.body.append(r);
- const st=document.createElement('style');st.textContent='@page{size:'+(o.size||'A4')+' '+(o.orient||'portrait')+';margin:0}';document.head.append(st);document.body.classList.add('printing');
- const done=()=>{document.body.classList.remove('printing');r.remove();st.remove();removeEventListener('afterprint',done)};addEventListener('afterprint',done);setTimeout(()=>print(),60)}
+function fit(el){const w=el.offsetWidth,p=el.parentElement,cw=p&&p.parentElement?p.parentElement.clientWidth:0;if(!w||cw<=32)return;const s=Math.min(1,(cw-32)/w);el.style.transform='scale('+s+')';p.style.width=w*s+'px';p.style.height=el.offsetHeight*s+'px'}
 const MF={SAMPLE,
  icons(){window.lucide&&lucide.createIcons()},
  toast(m,kind){const t=document.createElement('div');t.className='pointer-events-auto rounded-xl border bg-cloud px-4 py-3 text-sm shadow-lg dark:bg-[#121827] animate-[rise_.25s_ease-out] '+(kind==='error'?'border-verm':'border-black/10 dark:border-white/15');t.textContent=m;$('#toasts').append(t);setTimeout(()=>t.remove(),5000)},
@@ -68,8 +68,23 @@ const MF={SAMPLE,
  close(id){const m=$('#'+id);m.classList.add('hidden');m.classList.remove('flex')},
  applyTheme(){const t=S().theme,d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d)},
  ago(ts){const d=Math.floor((Date.now()-ts)/864e5);return d<1?'Edited today':d===1?'Edited yesterday':'Edited '+d+' days ago'},
- docs(){let d=LS.get('mf-docs',null);if(!d){d=[['Q4 Product Report','business',1],['Thesis Chapter 2','academic',2],['Resume 2026','resume',4],['API Reference v2','tech',6],['Meeting Notes','minimal',9],['Project Proposal','business',14]].map(([t,k,n],i)=>({id:'seed'+i,title:t,tpl:k,upd:Date.now()-n*864e5,content:'# '+t+'\n\nSample content for this mock document.\n\n## Overview\n\n- First point\n- Second point\n- Third point\n'}));LS.set('mf-docs',d)}return d},
+ docs(){let d=LS.get('mf-docs',null);if(!d){d=[['Q4 Product Report','business',1],['Thesis Chapter 2','academic',2],['Resume 2026','resume',4],['API Reference v2','tech',6],['Meeting Notes','minimal',9],['Project Proposal','business',14]].map(([t,k,n],i)=>({id:'seed'+i,title:t,tpl:k,upd:Date.now()-n*864e5,content:'# '+t+'\n\nSample content for this document.\n\n## Overview\n\n- First point\n- Second point\n- Third point\n'}));LS.set('mf-docs',d)}return d},
  saveDocs(d){LS.set('mf-docs',d)},
+ async apiFetch(path,init){
+  const bases=location.protocol==='file:'?['http://localhost:3000','http://127.0.0.1:3000']:['','http://localhost:3000','http://127.0.0.1:3000'].filter((b,i,a)=>!b||(location.origin!==b&&a.indexOf(b)===i));
+  for(const base of bases){
+   try{
+    const r=await fetch(base+path,init);
+    if(r.status===404||r.status===405||r.status===501)continue;
+    if(r.ok&&path==='/api/convert'&&!(r.headers.get('content-type')||'').includes('pdf'))continue;
+    if(r.ok&&path==='/api/templates'&&!(r.headers.get('content-type')||'').includes('json'))continue;
+    return r;
+   }catch(e){}
+  }
+  throw new Error('Cannot reach the MarkFlow PDF backend. Run "npm start" in CloudMarkDownConverter/backend and open http://localhost:3000.');
+ },
+ async loadTemplates(){try{const r=await this.apiFetch('/api/templates');if(!r.ok)return TPL;const list=await r.json();if(Array.isArray(list)&&list.length){Object.keys(TPL).forEach(k=>delete TPL[k]);list.forEach(t=>{TPL[t.id]={n:t.name,d:t.description,bf:t.bf,hf:t.hf,ac:t.ac,hb:t.hb,sz:t.sz,m:t.m}})}}catch(e){}return TPL},
+ async exportPdf(payload){const r=await this.apiFetch('/api/convert',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!r.ok){let msg='Failed to generate PDF.';try{const j=await r.json();if(j&&j.error)msg=j.error}catch(e){}throw new Error(msg)}const blob=await r.blob();const cd=r.headers.get('content-disposition')||'';const m=cd.match(/filename="([^"]+)"/);const fallback=((payload.title||'document').replace(/[^a-zA-Z0-9._-]+/g,'-').replace(/^-+|-+$/g,'')||'document')+'.pdf';const name=(m&&m[1])||fallback;const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);return name},
  async run(ul,steps,ms=600){for(let i=0;i<=steps.length;i++){ul.innerHTML=steps.map((s,j)=>`<li class="flex items-center gap-2 ${j>i?'opacity-40':''}"><i data-lucide="${j<i?'check-circle-2':j===i?'loader-2':'circle'}" class="h-4 w-4 ${j<i?'text-flow':j===i?'animate-spin':''}"></i>${esc(s)}</li>`).join('');MF.icons();if(i<steps.length)await new Promise(r=>setTimeout(r,ms))}}
 };
 document.addEventListener('DOMContentLoaded',()=>{

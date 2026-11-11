@@ -21,9 +21,10 @@ body{font-family:Inter,system-ui,sans-serif}
 .doc code{font:.85em ui-monospace,Consolas,monospace;background:#EEF1F6;padding:.1em .3em;border-radius:3px}
 .doc pre{background:#EEF1F6;padding:.8em 1em;border-radius:6px;white-space:pre-wrap;break-inside:avoid}.doc pre code{background:none;padding:0}
 .doc hr{border:0;border-top:1px solid #D5DBE5;margin:1.4em 0}
+.doc table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.94em}
+.doc th,.doc td{border:1px solid #D5DBE5;padding:.45em .65em;text-align:left}
+.doc th{background:rgba(15,23,42,.04);font-weight:700}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-#print-root{display:none}
-@media print{body.printing>*:not(#print-root){display:none!important}#print-root{display:block}#print-root .doc{transform:none;box-shadow:none;min-height:0;width:100%!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -46,9 +47,8 @@ body{font-family:Inter,system-ui,sans-serif}
         <a href="settings.html"  class="flex items-center gap-3 rounded-lg px-3 py-2 transition text-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10"><i data-lucide="settings" class="h-4 w-4"></i>Settings</a>
       
     </nav>
-    <div class="mt-auto space-y-2 border-t border-black/10 pt-4 text-sm dark:border-white/10">
-      <div class="flex items-center gap-3 px-2"><span class="grid h-8 w-8 place-items-center rounded-full bg-flow/20 font-semibold">AM</span><div class="min-w-0"><p class="truncate font-medium">Alex Morgan</p><p class="truncate text-xs text-black/50 dark:text-white/50">alex.morgan@example.com</p></div></div>
-      <div class="flex gap-2"><button data-theme-toggle class="rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Toggle light or dark mode"><i data-lucide="sun-moon" class="h-4 w-4"></i></button><a href="login.html" class="flex flex-1 items-center gap-2 rounded-lg px-2 py-2 hover:bg-black/5 dark:hover:bg-white/10"><i data-lucide="log-out" class="h-4 w-4"></i>Sign out (demo)</a></div>
+    <div class="mt-auto border-t border-black/10 pt-4 text-sm font-medium dark:border-white/10">
+      <button data-theme-toggle class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-black/60 transition hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/10" aria-label="Toggle light or dark mode"><i data-lucide="sun-moon" class="h-4 w-4"></i>Toggle theme</button>
     </div>
   </aside>
   <div class="flex min-w-0 flex-1 flex-col">
@@ -86,13 +86,13 @@ function draw(){
   const t=$('#q').value.toLowerCase(),k=$('#sort').value;
   const L=D.filter(d=>d.title.toLowerCase().includes(t)).sort((a,b)=>k==='title'?a.title.localeCompare(b.title):k==='words'?wc(b)-wc(a):b.upd-a.upd);
   $('#empty').classList.toggle('hidden',L.length>0);
-  $('#list').innerHTML=L.map(d=>`<article class="relative rounded-2xl border border-black/10 p-4 shadow-sm transition hover:shadow-md dark:border-white/10"><button data-act="open" data-id="${d.id}" class="block w-full text-left"><div class="h-28 overflow-hidden rounded-lg bg-flow/10 p-3 text-xs leading-relaxed text-black/60 dark:text-white/60">${esc(d.content.replace(/[#*>\`-]/g,'').slice(0,220))}</div><h2 class="mt-3 truncate pr-8 font-semibold">${esc(d.title)}</h2></button><p class="flex flex-wrap gap-x-3 text-sm text-black/60 dark:text-white/60"><span>${TPL[d.tpl].n}</span><span>${wc(d)} words</span><span>${MF.ago(d.upd)}</span></p><button data-menu class="absolute right-3 top-[9.75rem] rounded-lg p-1.5 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Actions for ${esc(d.title)}" aria-haspopup="menu"><i data-lucide="more-horizontal" class="h-4 w-4"></i></button><ul role="menu" class="absolute right-3 top-[11.5rem] z-10 hidden w-44 rounded-xl border border-black/10 bg-cloud p-1 text-sm shadow-lg dark:border-white/15 dark:bg-[#121827]">${[['open','folder-open','Open'],['edit','pen-line','Edit'],['rename','text-cursor-input','Rename'],['dup','copy','Duplicate'],['export','file-down','Export'],['del','trash-2','Delete']].map(([a,i,l])=>`<li><button role="menuitem" data-act="${a}" data-id="${d.id}" class="flex w-full items-center gap-2 rounded-lg px-3 py-2 hover:bg-black/5 dark:hover:bg-white/10 ${a==='del'?'text-verm':''}"><i data-lucide="${i}" class="h-4 w-4"></i>${l}</button></li>`).join('')}</ul></article>`).join('');
+  $('#list').innerHTML=L.map(d=>`<article class="relative rounded-2xl border border-black/10 p-4 shadow-sm transition hover:shadow-md dark:border-white/10"><button data-act="open" data-id="${d.id}" class="block w-full text-left"><div class="h-28 overflow-hidden rounded-lg bg-flow/10 p-3 text-xs leading-relaxed text-black/60 dark:text-white/60">${esc(d.content.replace(/[#*>\`-]/g,'').slice(0,220))}</div><h2 class="mt-3 truncate pr-8 font-semibold">${esc(d.title)}</h2></button><p class="flex flex-wrap gap-x-3 text-sm text-black/60 dark:text-white/60"><span>${(TPL[d.tpl]||TPL.minimal||{n:d.tpl}).n}</span><span>${wc(d)} words</span><span>${MF.ago(d.upd)}</span></p><button data-menu class="absolute right-3 top-[9.75rem] rounded-lg p-1.5 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Actions for ${esc(d.title)}" aria-haspopup="menu"><i data-lucide="more-horizontal" class="h-4 w-4"></i></button><ul role="menu" class="absolute right-3 top-[11.5rem] z-10 hidden w-44 rounded-xl border border-black/10 bg-cloud p-1 text-sm shadow-lg dark:border-white/15 dark:bg-[#121827]">${[['open','folder-open','Open'],['edit','pen-line','Edit'],['rename','text-cursor-input','Rename'],['dup','copy','Duplicate'],['export','file-down','Export'],['del','trash-2','Delete']].map(([a,i,l])=>`<li><button role="menuitem" data-act="${a}" data-id="${d.id}" class="flex w-full items-center gap-2 rounded-lg px-3 py-2 hover:bg-black/5 dark:hover:bg-white/10 ${a==='del'?'text-verm':''}"><i data-lucide="${i}" class="h-4 w-4"></i>${l}</button></li>`).join('')}</ul></article>`).join('');
   MF.icons();
 }
 document.addEventListener('click',e=>{
   const m=e.target.closest('[data-menu]');$$('#list ul').forEach(u=>{if(!m||u!==m.nextElementSibling)u.classList.add('hidden')});
   if(m){m.nextElementSibling.classList.toggle('hidden');return}
-  const b=e.target.closest('[data-act]');if(!b)return;const d=D.find(x=>x.id===b.dataset.id);tgt=d;
+  const b=e.target.closest('[data-act]');if(!b)return;const d=D.find(x=>x.id===b.dataset.id);if(!d)return;tgt=d;
   const a=b.dataset.act;
   if(a==='open'||a==='edit')go(d,'workspace');
   else if(a==='export')go(d,'export');
@@ -104,6 +104,7 @@ $('#rns').onclick=()=>{const v=$('#rni').value.trim();if(!v)return MF.toast('Ent
 $('#dms').onclick=()=>{D=D.filter(x=>x.id!==tgt.id);MF.saveDocs(D);MF.close('dm');draw();MF.toast('Deleted “'+tgt.title+'”.')};
 $('#new').onclick=()=>{LS.set('mf-cur',{id:null,title:'Untitled document',content:'# Untitled document\n\nStart writing here.\n'});location.href=W.workspace};
 $('#q').oninput=draw;$('#sort').onchange=draw;draw();
+MF.loadTemplates().then(draw);
 </script>
 
 </body>

@@ -21,9 +21,10 @@ body{font-family:Inter,system-ui,sans-serif}
 .doc code{font:.85em ui-monospace,Consolas,monospace;background:#EEF1F6;padding:.1em .3em;border-radius:3px}
 .doc pre{background:#EEF1F6;padding:.8em 1em;border-radius:6px;white-space:pre-wrap;break-inside:avoid}.doc pre code{background:none;padding:0}
 .doc hr{border:0;border-top:1px solid #D5DBE5;margin:1.4em 0}
+.doc table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.94em}
+.doc th,.doc td{border:1px solid #D5DBE5;padding:.45em .65em;text-align:left}
+.doc th{background:rgba(15,23,42,.04);font-weight:700}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-#print-root{display:none}
-@media print{body.printing>*:not(#print-root){display:none!important}#print-root{display:block}#print-root .doc{transform:none;box-shadow:none;min-height:0;width:100%!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -33,10 +34,9 @@ body{font-family:Inter,system-ui,sans-serif}
   <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
     <a href="index.html" class="flex items-center gap-2 font-bold"><span class="grid h-8 w-8 place-items-center rounded-lg bg-flow text-ink"><i data-lucide="file-down" class="h-4 w-4"></i></span>MarkFlow</a>
     <nav class="flex items-center gap-1 text-sm font-medium" aria-label="Main">
-      <a href="templates.html" class="hidden rounded-lg px-3 py-2 hover:bg-black/5 sm:block dark:hover:bg-white/10">Templates</a>
+      <a href="workspace.html" class="rounded-lg px-3 py-2 hover:bg-black/5 dark:hover:bg-white/10">Workspace</a>
+      <a href="templates.html" class="rounded-lg px-3 py-2 hover:bg-black/5 dark:hover:bg-white/10">Templates</a>
       <button data-theme-toggle class="rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Toggle light or dark mode"><i data-lucide="sun-moon" class="h-5 w-5"></i></button>
-      <a href="login.html" class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 border border-black/15 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10">Log in</a>
-      <a href="register.html" class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow disabled:opacity-50 bg-flow text-ink hover:bg-flow-600 hover:text-white hidden sm:inline-flex">Sign up</a>
     </nav>
   </div>
 </header>
@@ -76,7 +76,7 @@ body{font-family:Inter,system-ui,sans-serif}
       
         <div class="rounded-2xl border border-black/10 p-5 shadow-sm transition hover:shadow-md dark:border-white/10"><span class="grid h-9 w-9 place-items-center rounded-lg bg-flow/20"><i data-lucide="moon" class="h-4 w-4"></i></span><h3 class="mt-4 font-semibold">Light and dark</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Follows your system, or set it yourself.</p></div>
       
-        <div class="rounded-2xl border border-black/10 p-5 shadow-sm transition hover:shadow-md dark:border-white/10"><span class="grid h-9 w-9 place-items-center rounded-lg bg-flow/20"><i data-lucide="lock" class="h-4 w-4"></i></span><h3 class="mt-4 font-semibold">Private in this demo</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Everything stays in your browser. No server is used.</p></div>
+        <div class="rounded-2xl border border-black/10 p-5 shadow-sm transition hover:shadow-md dark:border-white/10"><span class="grid h-9 w-9 place-items-center rounded-lg bg-flow/20"><i data-lucide="lock" class="h-4 w-4"></i></span><h3 class="mt-4 font-semibold">Stateless &amp; private</h3><p class="mt-1 text-sm text-black/60 dark:text-white/60">Drafts stay in your browser. PDF conversion stores nothing on the server.</p></div>
       
     </div>
   </section>
@@ -94,7 +94,7 @@ body{font-family:Inter,system-ui,sans-serif}
     </ol>
   </section>
 </main>
-<footer class="border-t border-black/10 dark:border-white/10"><div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-black/60 dark:text-white/60"><span class="font-semibold text-ink dark:text-cloud">MarkFlow</span><nav class="flex gap-5" aria-label="Footer"><a href="templates.html" class="hover:underline">Templates</a><a href="documents.html" class="hover:underline">My documents</a><a href="login.html" class="hover:underline">Log in</a></nav><span>Frontend prototype. No data leaves your browser.</span></div></footer>
+<footer class="border-t border-black/10 dark:border-white/10"><div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-black/60 dark:text-white/60"><span class="font-semibold text-ink dark:text-cloud">MarkFlow</span><nav class="flex gap-5" aria-label="Footer"><a href="templates.html" class="hover:underline">Templates</a><a href="documents.html" class="hover:underline">My documents</a></nav><span>Stateless Markdown-to-PDF converter.</span></div></footer>
 
 
 <div id="toasts" class="pointer-events-none fixed bottom-4 right-4 z-[60] flex max-w-sm flex-col gap-2" role="status" aria-live="polite"></div>
@@ -111,7 +111,7 @@ async function take(f){
   const t=await f.text();
   LS.set('mf-cur',{id:null,title:f.name.replace(/\.[^.]+$/,''),content:t});
   await MF.run($('#steps'),['Reading '+f.name,'Counting '+(t.trim().match(/\S+/g)||[]).length+' words','Keeping a draft in this browser','Opening the workspace'],550);
-  MF.flash('Loaded '+f.name+'. This is a demo: the file stayed in your browser.');location.href="workspace.html";
+  MF.flash('Loaded '+f.name+' into the workspace.');location.href="workspace.html";
 }
 fi.onchange=()=>take(fi.files[0]);
 ['dragenter','dragover'].forEach(e=>drop.addEventListener(e,x=>{x.preventDefault();drop.dataset.over='true'}));
